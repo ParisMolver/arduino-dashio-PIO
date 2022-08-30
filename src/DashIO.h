@@ -32,7 +32,6 @@
 #include "Arduino.h"
 #include <limits.h>
 
-//???#define DASH_SERVER "dash.dashio.io"
 extern char DASH_SERVER[];
 #define DASH_PORT 8883
 
@@ -500,6 +499,7 @@ public:
     String deviceID = ((char *)0);
     String type = ((char *)0);
     String name = ((char *)0);
+    String dashboardID = "BRDCST";
 
     DashioDevice(const String& _deviceType);
     void setup(const String& deviceIdentifier);
