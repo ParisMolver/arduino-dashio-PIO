@@ -579,13 +579,12 @@ void DashioBLE::begin(bool secureBLE) {
     
     // Setup server, service and characteristic
     pServer = BLEDevice::createServer();
-    BLEService *pService = pServer->createService(SERVICE_UUID);
+    pService = pServer->createService(SERVICE_UUID);
     pCharacteristic = pService->createCharacteristic(CHARACTERISTIC_UUID, BLECharacteristic::PROPERTY_WRITE_NR | BLECharacteristic::PROPERTY_NOTIFY );
     pCharacteristic->setCallbacks(new messageReceivedBLECallback(this));
     pService->start();
     
     // Setup BLE advertising
-    BLEAdvertising *pAdvertising;
     pAdvertising = BLEDevice::getAdvertising();
     pAdvertising->addServiceUUID(BLEUUID(SERVICE_UUID));
     pAdvertising->setScanResponse(true);
@@ -597,6 +596,18 @@ void DashioBLE::begin(bool secureBLE) {
 String DashioBLE::macAddress() {
     BLEAddress bdAddr = BLEDevice::getAddress();
     return bdAddr.toString().c_str();
+}
+
+void DashioBLE::advertise(){
+    pAdvertising->start();
+}
+
+bool DashioBLE::isConnected(){
+    if (pServer->getConnectedCount() > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // -------------------------------------------------------------------------------------

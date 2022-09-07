@@ -119,6 +119,8 @@ private:
     bool printMessages;
     DashioDevice *dashioDevice;
     BLEServer *pServer;
+    BLEService *pService;
+    BLEAdvertising *pAdvertising;
     BLECharacteristic *pCharacteristic;
 
     void bleNotifyValue(const String& message);
@@ -132,6 +134,8 @@ public:
     void run();
     void setCallback(void (*processIncomingMessage)(MessageData *messageData));
     void begin(bool secureBLE = false);
+    void advertise();
+    bool isConnected();
     String macAddress();
 };
 #endif
